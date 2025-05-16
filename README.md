@@ -1,0 +1,1 @@
+#### Proyecto de guardado de notas para prácticar backend con node, express, typescript, typeORM con mysql. y para el frontend react con typescript.
