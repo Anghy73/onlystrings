@@ -1,15 +1,21 @@
+import dotenv from 'dotenv'
+
 import { DataSource } from "typeorm";
+import User from "../models/usersModel";
+import Notes from "../models/notesModel";
+
+dotenv.config()
 
 export const AppDataSource = new DataSource({
-    type: "postgres",
+    type: "mysql",
     host: "localhost",
-    port: 5432,
+    port: 3306,
     username: "root",
-    password: process.env.CLAVE_DB,
-    database: "test",
+    password: process.env.PASSWORD_DB,
+    database: "onlystrings",
     synchronize: false,
     logging: true,
-    entities: [],
+    entities: [User, Notes],
     subscribers: [],
     migrations: [],
 })
