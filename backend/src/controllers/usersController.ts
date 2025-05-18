@@ -9,6 +9,17 @@ const userRepository = AppDataSource.getRepository(User)
 class usersController {
   constructor() { }
 
+  async consultar(req: Request, res: Response) {
+    try {
+      const users = await userRepository.find({ relations: ["notes"] })
+      res.status(200).json({ users, msg: "todo bem" })
+    } catch (error) {
+      if (error instanceof Error) {
+        console.log(error.message);
+      }
+    }
+  }
+
   async register(req: Request, res: Response) {
     const { name, email, password } = req.body
     try {

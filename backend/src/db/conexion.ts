@@ -1,10 +1,10 @@
-import dotenv from 'dotenv'
+import 'dotenv/config'
 
 import { DataSource } from "typeorm";
 import User from "../models/usersModel";
 import Notes from "../models/notesModel";
 
-dotenv.config()
+// dotenv.config()
 
 export const AppDataSource = new DataSource({
     type: "mysql",
