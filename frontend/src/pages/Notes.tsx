@@ -31,26 +31,58 @@ const Notes = () => {
   }, [user?.id, user?.token])
 
   console.log(notes);
-  
+
+  // const notas = [
+  //   {
+  //     id: 1,
+  //     title: 'dkasjd',
+  //     content: "dasd",
+  //     createdAt: "12/54/5433"
+  //   },
+  //   {
+  //     id: 2,
+  //     title: 'dkasjd',
+  //     content: "dasd",
+  //     createdAt: "12/54/5433"
+  //   },
+  //   {
+  //     id: 3,
+  //     title: 'dkasjd',
+  //     content: "dasd",
+  //     createdAt: "12/54/5433"
+  //   },
+  //   {
+  //     id: 4,
+  //     title: 'dkasjd',
+  //     content: "dasd",
+  //     createdAt: "12/54/5433"
+  //   },
+  //   {
+  //     id: 5,
+  //     title: 'dkasjd',
+  //     content: "dasd",
+  //     createdAt: "12/54/5433"
+  //   },
+  //   {
+  //     id: 6,
+  //     title: 'dkasjd',
+  //     content: "dasd",
+  //     createdAt: "12/54/5433" 
+  //   },
+  //   {
+  //     id: 7,
+  //     title: 'dkasjd',
+  //     content: "dasd",
+  //     createdAt: "12/54/5433"
+  //   },
+  // ]
+
 
   return (
-    <div className="flex flex-col">
-      <h2 className="text-2xl mb-10">Notes</h2>
+    <div className="flex flex-col w-full h-full pt-40">
       {
-        notes.length >= 1 ? <ListNotes notes={notes} /> : <p>Don't have notes</p>
+        user == null ? <p>You need login for show notes</p> : notes.length >= 1 ? <ListNotes notes={notes} /> : <p>Don't have notes</p>
       }
-      {/* {
-        notes.length >= 1 ? <>
-          {
-            notes.map(note => (
-              <div key={note.id}>
-                <h3>{note.title}</h3>
-                <p>{note.content}</p>
-              </div>
-            ))
-          }
-        </> : <p>no hay notas</p>
-      } */}
     </div>
   )
 }
