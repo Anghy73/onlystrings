@@ -21,8 +21,8 @@ class notesController {
         res.status(400).json({ error: "El ususario no existe" })
       }
 
-      // const notes = userRegistro?.notes
-      res.status(200).json({ userRegistro })
+      const notes = userRegistro?.notes
+      res.status(200).json({ notes })
     } catch (error) {
       if (error instanceof Error) {
         console.log(error.message);

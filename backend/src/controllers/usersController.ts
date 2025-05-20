@@ -21,6 +21,8 @@ class usersController {
   }
 
   async register(req: Request, res: Response) {
+    console.log(req.body);
+    
     const { name, email, password } = req.body
     try {
       const userExists = await userRepository.findOne({ where: { email: email } })
@@ -46,7 +48,9 @@ class usersController {
   async login(req: Request, res: Response) {
     const { email, password } = req.body
     try {
-      const userExists = await userRepository.findOne({ where: { email: email } })
+      const userExists = await userRepository.findOne({ where: { email: email }, relations: ["notes"] })
+      console.log(userExists);
+      
       if (!userExists) {
         res.status(400).json({ error: "Usuario no existe" })
       }
@@ -62,8 +66,16 @@ class usersController {
       }
 
       const token = generateToken(email)
+      
+      const user = {
+        id: userExists?.id,
+        name: userExists?.name,
+        email: userExists?.email,
+        notes: userExists?.notes,
+        token
+      }
 
-      res.status(200).json({ msg: "usuario correcto", token })
+      res.status(200).json({ msg: "usuario correcto", user })
     } catch (error) {
       if (error instanceof Error) {
         console.log(error.message);

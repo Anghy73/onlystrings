@@ -1,41 +1,7 @@
 import { useForm } from "react-hook-form"
-import { z } from 'zod'
 import { Link } from "react-router"
 import { zodResolver } from "@hookform/resolvers/zod"
-
-const userRegisterSchema = z.object({
-  name: z.string({
-    required_error: "name field is required",
-    invalid_type_error: "type of data incorrect",
-  }).min(1, {
-    message: "Name field is required"
-  }).max(30, {
-    message: "Must be 30 or fewer characters long"
-  }),
-  email: z.string({
-    required_error: "email field is required",
-    invalid_type_error: "type of data incorrect",
-  }).min(1, {
-    message: "Email field is required"
-  }).email({
-    message: "contains invalid characters"
-  }),
-  password: z.string({
-    required_error: "password field is required",
-    invalid_type_error: "type of data incorrect",
-  }).min(6, {
-    message: "Must be 6 or more characters long"
-  }),
-  confirmPassword: z.string({
-    required_error: "confirm password field is required",
-    invalid_type_error: "type of data incorrect",
-  }).min(1, {
-    message: "Confirm Password field is required"
-  })
-}).refine((data) => data.password === data.confirmPassword, {
-  message: "Passwords don't match",
-  path: ["confirmPassword"]
-})
+import { userRegisterSchema } from "../schemas/zodSchemas"
 
 interface UserRegister {
   name: string
@@ -45,11 +11,32 @@ interface UserRegister {
 }
 
 function Register() {
+  // const navigate = useNavigate()
   const { register, handleSubmit, formState: { errors } } = useForm<UserRegister>({
     resolver: zodResolver(userRegisterSchema)
   })
-  const onSubmit = handleSubmit((data) => {
-    console.log(data);
+  const onSubmit = handleSubmit(async (data) => {
+    try {
+      console.log(data);
+      const res = await fetch("http://localhost:5600/users/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: data.name,
+          email: data.email,
+          password: data.password
+        })
+      })
+      const json = await res.json()
+      console.log(json);
+      // navigate("/login")
+    } catch (error) {
+      if (error instanceof Error) {
+        console.log(error.message);
+      }
+    }
   })
 
   return (

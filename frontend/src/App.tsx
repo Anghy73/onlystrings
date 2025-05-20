@@ -4,8 +4,13 @@ import Home from './pages/Home'
 import Register from './pages/Register'
 import Notes from './pages/Notes'
 import Login from './pages/Login'
+// import { useTokenStore } from './store/useTokenStore'
 
 function App() {
+  // const token = useTokenStore(state => state.token)
+  // if (token) {
+  // }
+  // console.log(token);
   return (
     <>
       <Routes>
