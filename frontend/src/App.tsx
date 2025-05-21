@@ -4,6 +4,7 @@ import Home from './pages/Home'
 import Register from './pages/Register'
 import Notes from './pages/Notes'
 import Login from './pages/Login'
+import CreateNote from './pages/CreateNote'
 // import { useTokenStore } from './store/useTokenStore'
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
         <Route element={<Home />}>
           <Route path='/' element={<Notes />} />
         </Route>
+        <Route path='/createNote' element={<CreateNote />} />
         <Route path='/login' element={<Login />} />
         <Route path='/register' element={<Register />} />
         {/* separar las rutas de login y registro en otro Route con verificacion si esta iniciada su sesión o no */}

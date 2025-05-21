@@ -34,7 +34,11 @@ function Header() {
               </div>
 
             </> : <>
-              <button className="w-full text-center border-2 py-2 px-4 rounded-md bg-cyan-950 border-cyan-900 text-cyan-500 hover:border-cyan-500 cursor-pointer hover:text-cyan-300 transition-colors font-semibold" onClick={handleCreate}>Create</button>
+              <div className="flex-1">
+                <Link to="/createNote">
+                  <button className="w-full text-center border-2 py-2 px-4 rounded-md bg-cyan-950 border-cyan-900 text-cyan-500 hover:border-cyan-500 cursor-pointer hover:text-cyan-300 transition-colors font-semibold" onClick={handleCreate}>Create</button>
+                </Link>
+              </div>
               <button className="w-full max-w-32 text-center border-2 py-2 px-4 rounded-md hover:text-cyan-500 cursor-pointer transition-colors font-semibold" onClick={handleLogout}>logout</button>
             </>
           }
