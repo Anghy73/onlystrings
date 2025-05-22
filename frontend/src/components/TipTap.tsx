@@ -1,47 +1,19 @@
-import Document from '@tiptap/extension-document'
-import Heading from '@tiptap/extension-heading'
-import Paragraph from '@tiptap/extension-paragraph'
-import Text from '@tiptap/extension-text'
-import { EditorContent, useEditor } from "@tiptap/react"
+
+import { Editor, EditorContent } from "@tiptap/react"
 // import StarterKit from "@tiptap/starter-kit"
 
 // const extensions = [StarterKit]
 
-const content = `
-        <h1>This is a 1st yes level heading</h1>
-        <h2>This is a 2nd level heading</h2>
-        <h3>This is a 3rd level heading</h3>
-        <h4>This 4th level heading will be converted to a paragraph, because levels are configured to be only 1, 2 or 3.dlkjsjdaskadjaslk</h4>`
 
-function Tiptap() {
-  const editor = useEditor({
-    extensions: [
-      Document,
-      Paragraph,
-      Text,
-      Heading.configure({
-        levels: [1, 2, 3]
-      })
-    ],
-    editorProps: {
-      attributes: {
-        class: 'prose max-w-none prose-sm sm:prose-base lg:prose-lg xl:prose-2xl m-5 focus:outline-none'
-      }
-    },
-    content: content,
-  })
-  
 
+function Tiptap({ editor }: { editor: Editor | null }) {
   if (!editor) {
     return null
   }
 
-  // console.log(editor.getHTML());
-  
-
-  const handleSaveNote = () => {
-    console.log("note")
-  }
+  // const handleSaveNote = () => {
+  //   console.log("note")
+  // }
 
   return (
     <div className='flex flex-col gap-10'>
@@ -71,7 +43,7 @@ function Tiptap() {
             </div>
           </div>
         </div>
-        <div onClick={handleSaveNote} className='flex justify-center items-center border-3 border-black rounded-lg cursor-pointer px-5'>✅</div>
+        {/* <div onClick={handleSaveNote} className='flex justify-center items-center border-3 border-black rounded-lg cursor-pointer px-5'>✅</div> */}
       </div>
 
       {/* content */}
