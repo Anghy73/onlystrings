@@ -31,8 +31,26 @@ class notesController {
     // res.json({ msg: "Consultar notas" })
   }
 
-  consultarNota(req: Request, res: Response) {
-    res.json({ msg: "Consultar una nota" })
+  async consultarNota(req: Request, res: Response) {
+    console.log(req.params);
+    
+    const { noteId } = req.params
+    console.log(noteId);
+    
+    try {
+      const note = await notesRepository.find({ where: { id:  Number(noteId)} })
+      if (note.length == 0) {
+        res.status(400).json({ error: "La nota no existe" })
+      }
+      console.log(note);
+      
+      res.status(200).json({ note })
+    } catch (error) {
+      if (error instanceof Error) {
+        console.log(error.message);
+      }
+    }
+    // res.json({ msg: "Consultar una nota" })
   }
 
   async ingresar(req: Request, res: Response) {

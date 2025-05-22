@@ -4,10 +4,12 @@ import { verificarToken } from '../helpers/authentication'
 
 const router = express.Router()
 
-router.get("/:userId", verificarToken, notesController.consultar)
 
+router.get("/:userId", verificarToken, notesController.consultar)
 router.post("/:userId", verificarToken, notesController.ingresar)
-// router.get("/note/:noteId", notesController.consultarNota)
+
+router.get("/note/:noteId", notesController.consultarNota)
+
 
 // router.route("/:noteId")
 //   .put(notesController.actualizar)

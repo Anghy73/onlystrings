@@ -20,7 +20,7 @@ function App() {
           <Route path='/' element={<Notes />} />
         </Route>
         <Route path='/createNote' element={<CreateNote />} />
-        <Route path='/notePage' element={<NotePage />} />
+        <Route path='/notePage/:noteId' element={<NotePage />} />
         <Route path='/login' element={<Login />} />
         <Route path='/register' element={<Register />} />
         {/* separar las rutas de login y registro en otro Route con verificacion si esta iniciada su sesión o no */}
