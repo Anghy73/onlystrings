@@ -33,17 +33,17 @@ class notesController {
 
   async consultarNota(req: Request, res: Response) {
     console.log(req.params);
-    
+
     const { noteId } = req.params
     console.log(noteId);
-    
+
     try {
-      const note = await notesRepository.find({ where: { id:  Number(noteId)} })
+      const note = await notesRepository.find({ where: { id: Number(noteId) } })
       if (note.length == 0) {
         res.status(400).json({ error: "La nota no existe" })
       }
       console.log(note);
-      
+
       res.status(200).json({ note })
     } catch (error) {
       if (error instanceof Error) {
@@ -78,8 +78,24 @@ class notesController {
     res.json({ msg: "Actualizar nota" })
   }
 
-  borrar(req: Request, res: Response) {
-    res.json({ msg: "Borrar nota" })
+  async borrar(req: Request, res: Response) {
+    const { noteId } = req.params
+    console.log(noteId);
+    
+    try {
+      const note = await notesRepository.findOne({ where: { id: Number(noteId) } })
+      if (!note) {
+        res.status(400).json({ error: "no hay nota" })
+      }
+      await notesRepository.delete({ id: Number(noteId) })
+      res.status(200).json({ msg: "nota borrada" })
+    } catch (error) {
+      if (error instanceof Error) {
+        console.log(error.message);
+
+      }
+    }
+    // res.json({ msg: "Borrar nota" })
   }
 }
 export default new notesController()
