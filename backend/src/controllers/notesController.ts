@@ -74,14 +74,35 @@ class notesController {
     }
   }
 
-  actualizar(req: Request, res: Response) {
-    res.json({ msg: "Actualizar nota" })
+  async actualizar(req: Request, res: Response) {
+    const { noteId } = req.params
+    console.log(noteId);
+    console.log(req.body);
+    
+    try {
+      const note = await notesRepository.find({ where: { id: Number(noteId) } })
+      if (!note) {
+        res.status(400).json({ error: "nota no encontrada" })
+      }
+      await notesRepository.update({ id: Number(noteId) }, req.body)
+      const noteUpdated = await notesRepository.findOne({ where: { id: Number(noteId) } })
+
+      res.status(200).json(noteUpdated)
+      
+
+    } catch (error) {
+      if (error instanceof Error) {
+        console.log(error.message);
+      }
+    }
+
+    // res.json({ msg: "Actualizar nota" })
   }
 
   async borrar(req: Request, res: Response) {
     const { noteId } = req.params
     console.log(noteId);
-    
+
     try {
       const note = await notesRepository.findOne({ where: { id: Number(noteId) } })
       if (!note) {
