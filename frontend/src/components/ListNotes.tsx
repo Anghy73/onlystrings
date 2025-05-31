@@ -1,14 +1,14 @@
-import { Suspense, useEffect, useState } from "react";
+import { useState } from "react";
 import { useNotesStore } from "../store/useNotesStore";
 import NoteItem from "./NoteItem";
-import { useTokenStore } from "../store/useTokenStore";
+// import { useTokenStore } from "../store/useTokenStore";
 
-interface Note {
-  readonly id: number
-  title: string
-  content?: string
-  createdAt?: string
-}
+// interface Note {
+//   readonly id: number
+//   title: string
+//   content?: string
+//   createdAt?: string
+// }
 
 function ListNotes() {
 
@@ -39,7 +39,7 @@ function ListNotes() {
   // }
 
   console.log(notes);
-  
+
 
   return (
     <div className="relative grid grid-cols-1 sm:grid-cols-2 justify-center w-full md:grid-cols-2 lg:grid-cols-3 gap-10">
@@ -54,13 +54,11 @@ function ListNotes() {
           </div>
         </div>
       }
-      <Suspense fallback={<div>Cargando...</div>}>
-        {
-          notes.map(note => (
-            <NoteItem key={note.id} note={note} />
-          ))
-        }
-      </Suspense>
+      {
+        notes.map(note => (
+          <NoteItem key={note.id} note={note} />
+        ))
+      }
     </div>
   )
 }

@@ -6,6 +6,7 @@ import Heading from '@tiptap/extension-heading'
 import Paragraph from '@tiptap/extension-paragraph'
 import Text from '@tiptap/extension-text'
 import { useTokenStore } from "../store/useTokenStore";
+import { useState } from "react";
 
 const content = `
         <h1>This is a 1st yes level heading</h1>
@@ -14,6 +15,7 @@ const content = `
         <h4>This 4th level heading will be converted to a paragraph, because levels are configured to be only 1, 2 or 3.dlkjsjdaskadjaslk</h4>`
 
 function CreateNote() {
+  const [title, setTitle] = useState('')
   const user = useTokenStore(state => state.user)
   const navigate = useNavigate()
   console.log(user);
@@ -35,12 +37,8 @@ function CreateNote() {
     content: content,
   })
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleCreateNote = async () => {
     try {
-      e.preventDefault()
-      console.log('crear');
-      const data = new FormData(e.currentTarget)
-      const title = data.get("title")
       const content = editor?.getHTML()
       const note = {
         title: title,
@@ -72,18 +70,18 @@ function CreateNote() {
         <div className="absolute top-14 left-10 border-3 border-gray-700 text-gray-500 py-2 px-4 rounded-lg font-bold hover:text-gray-500">Back</div>
       </Link>
 
-      <form onSubmit={handleSubmit} className="w-full max-w-6xl flex flex-col justify-center items-center gap-6">
+      <div className="w-full max-w-6xl flex flex-col justify-center items-center gap-6">
         {/* title */}
         <div className="w-full flex justify-center items-center bg-black rounded-lg py-4">
-          <input name="title" className="w-full h-10 text-center text-4xl outline-0" type="text" placeholder="Untitle..." />
+          <input onChange={(e) => setTitle(e.currentTarget.value)} name="title" className="w-full h-10 text-center text-4xl outline-0" type="text" placeholder="Untitle..." value={title} />
         </div>
 
         {/* tools */}
         <div className="w-full flex flex-col">
           <Tiptap editor={editor} />
         </div>
-        <button className="bg-black w-full py-4 cursor-pointer" type="submit">Crear</button>
-      </form>
+        <button onClick={handleCreateNote} className="bg-black w-full py-4 cursor-pointer">Crear</button>
+      </div>
     </div>
 
   )

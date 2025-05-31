@@ -10,7 +10,7 @@ const Notes = () => {
 
   useEffect(() => {
     getAllNotes(user)
-  }, [])
+  }, [user, getAllNotes])
 
   // console.log(notes);
 
