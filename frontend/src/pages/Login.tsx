@@ -29,8 +29,13 @@ function Login() {
       })
       const json = await res.json()
       console.log(json);
-      setUser(json.user)
-      navigate("/")
+      if (json.error) {
+        console.log(json.error);
+
+      } else {
+        navigate("/")
+        setUser(json.user)
+      }
     } catch (error) {
       if (error instanceof Error) {
         console.log(error.message);

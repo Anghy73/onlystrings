@@ -1,4 +1,4 @@
-import { Link } from "react-router"
+import { Link, useNavigate } from "react-router"
 import Tiptap from "../components/TipTap"
 import { useEditor } from "@tiptap/react";
 import Document from '@tiptap/extension-document'
@@ -15,6 +15,7 @@ const content = `
 
 function CreateNote() {
   const user = useTokenStore(state => state.user)
+  const navigate = useNavigate()
   console.log(user);
 
   const editor = useEditor({
@@ -57,14 +58,13 @@ function CreateNote() {
       })
       const json = await res.json()
       console.log(json);
-
+      navigate("/")
     } catch (error) {
       if (error instanceof Error) {
         console.log(error.message)
       }
     }
   }
-
 
   return (
     <div className="relative min-h-screen flex flex-col justify-center items-center px-10 pt-28">

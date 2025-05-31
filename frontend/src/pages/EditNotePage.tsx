@@ -1,19 +1,20 @@
-import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router"
 import { useTokenStore } from "../store/useTokenStore";
+import { useEffect, useState } from "react";
 import ViewNote from "../components/ViewNote";
 
 interface Note {
-  id: number
+  readonly id: number
   title: string
-  content: string
-  createdAt: string
+  content?: string
+  createdAt?: string
 }
 
-function NotePage() {
-  const [note, setNote] = useState<Note | undefined>(undefined)
+function EditNotePage() {
   const { noteId } = useParams()
-  console.log(noteId);
+  // console.log(noteId);
+  const [note, setNote] = useState<Note| null>(null)
+
   const user = useTokenStore(store => store.user)
 
   useEffect(() => {
@@ -31,20 +32,21 @@ function NotePage() {
     getNote()
   }, [noteId, user?.token])
 
-  console.log(note);
+  // console.log(note);
 
   return (
     <>
-      <div>NotePage</div>
+      <div>EditNotePage</div>
       <Link to="/">
         <button className="bg-red-300 my-10 ml-10">Volver</button>
       </Link>
       <div className="bg-red-200">
-        <input type="text" placeholder={note?.title} />
-        <ViewNote edit={false} note={note} />
+        <h2>{note?.title}</h2>
+
+        {note && <ViewNote edit={true} note={note} />}
       </div>
     </>
   )
 }
 
-export default NotePage
+export default EditNotePage

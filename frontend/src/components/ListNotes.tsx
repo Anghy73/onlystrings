@@ -1,62 +1,66 @@
-import { Link } from "react-router";
-import PreviewNote from "./PreviewNote";
-import { HugeiconsIcon } from "@hugeicons/react";
-import { Delete02Icon, Edit04Icon } from "@hugeicons/core-free-icons";
-import { useState } from "react";
+import { Suspense, useEffect, useState } from "react";
+import { useNotesStore } from "../store/useNotesStore";
+import NoteItem from "./NoteItem";
+import { useTokenStore } from "../store/useTokenStore";
 
 interface Note {
-  id: number
+  readonly id: number
   title: string
-  content: string
-  createdAt: string
+  content?: string
+  createdAt?: string
 }
 
-function ListNotes({ notes }: { notes: Note[] }) {
+function ListNotes() {
+
+  // const [noteId, setNoteId] = useState<number | null>(null)
+
+  // const user = useTokenStore(state => state.user)
+  const notes = useNotesStore(state => state.notes)
+  // console.log(notes);
+  // const getAllNotes = useNotesStore(state => state.getAllNotes)
+
+  // useEffect(() => {
+  //   console.log('efect en lisntoes');
+
+  //   getAllNotes(user)
+  // }, [user, getAllNotes])
+  // const deleteNote = useNotesStore(state => state.deleteNote)
 
   const [showModalDelete, setShowModalDelete] = useState(false)
 
-  const handleShowModalDelete = () => {
-    console.log('si');
-    // console.log(value);
-    setShowModalDelete(!showModalDelete)
-  }
+  // const handleShowModalDelete = (noteIddel: number | null) => {
+  //   setNoteId(noteIddel)
+  //   setShowModalDelete(!showModalDelete)
+  // }
+
+  // const handleDeleteNote = async () => {
+  //   deleteNote(noteId)
+  //   setShowModalDelete(false)
+  // }
 
   console.log(notes);
+  
+
   return (
     <div className="relative grid grid-cols-1 sm:grid-cols-2 justify-center w-full md:grid-cols-2 lg:grid-cols-3 gap-10">
       {
-        showModalDelete && <div className="absolute flex flex-col justify-evenly items-center top-1/5 left-0 bg-gray-900 w-full h-50 z-10">
-          <h5>Modal Delete Note</h5>
-          <div className="flex gap-10">
-            <button onClick={handleShowModalDelete} className="border-3 border-gray-500 p-2 px-4">Cancel</button>
-            <button onClick={handleShowModalDelete} className="border-3 border-red-400 p-2 px-4">Delete</button>
+        showModalDelete && <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
+          <div className="bg-white text-black p-6 rounded-lg shadow-lg">
+            <h5 className="mb-4">Are you sure you want to delete this note?</h5>
+            <div className="flex gap-4 justify-end">
+              <button onClick={() => setShowModalDelete(false)} className="border border-gray-500 px-4 py-2">Cancel</button>
+              {/* <button onClick={handleDeleteNote} className="bg-red-500 text-white px-4 py-2 rounded-md">Delete</button> */}
+            </div>
           </div>
         </div>
       }
-      {
-        notes.map(note => (
-          <div key={note.id} className="w-full grid grid-cols-5 place-items-stretch gap-2">
-            <div className="col-span-4 flex flex-col gap-4 border-3 border-gray-800 rounded-md w-full">
-              <Link className="px-4 py-2" to={`/notePage/${note.id}`}>
-                <h3 className="text-3xl font-medium text-nowrap overflow-clip">{note.title}</h3>
-                <div className="h-30 overflow-clip">
-                  {/* <p className="text-md text-gray-400 text-balance">{note.content}</p> */}
-                  <PreviewNote note={note} />
-                </div>
-                <p className="text-end text-gray-600">{note.createdAt}</p>
-              </Link>
-            </div>
-            <div className="w-full flex  flex-col gap-2 max-w-16">
-              <button className="flex justify-center items-center border-3 border-gray-800 flex-1 rounded-md cursor-pointer">
-                <HugeiconsIcon icon={Edit04Icon} />
-              </button>
-              <button onClick={handleShowModalDelete} className="flex justify-center items-center border-3 border-gray-800 flex-1 rounded-md cursor-pointer">
-                <HugeiconsIcon icon={Delete02Icon} />
-              </button>
-            </div>
-          </div>
-        ))
-      }
+      <Suspense fallback={<div>Cargando...</div>}>
+        {
+          notes.map(note => (
+            <NoteItem key={note.id} note={note} />
+          ))
+        }
+      </Suspense>
     </div>
   )
 }

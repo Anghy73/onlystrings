@@ -1,0 +1,96 @@
+import { create } from "zustand";
+
+interface Note {
+  readonly id: number
+  title: string
+  content?: string
+  createdAt?: string
+}
+
+interface User {
+  id: number
+  name: string
+  email: string,
+  notes: string,
+  token: string
+}
+
+interface NotesStore {
+  notes: Array<Note>
+  getAllNotes: (user: User | null) => void
+  updateNote: ({note, user}: { note: Note, user: User | null }) => void
+  deleteNote: (noteId: number) => void
+}
+
+export const useNotesStore = create<NotesStore>((set, get) => ({
+  notes: [],
+  getAllNotes: async (user) => {
+    try {
+      const res = await fetch(`http://localhost:5600/notes/${user?.id}`, {
+        headers: {
+          'Authorization': `Bearer ${user?.token}`,
+          'Content-Type': 'application/json'
+        },
+      })
+
+      const json = await res.json()
+      console.log(json);
+      
+      set({ notes: json.notes })
+    } catch (error) {
+      if (error instanceof Error) {
+        console.log(error);
+      }
+    }
+  },
+
+  updateNote: async ({ note, user }) => {
+    const getNotes = get().getAllNotes
+    console.log(note);
+    console.log(user);
+    const noteId = note.id
+
+    try {
+      const res = await fetch(`http://localhost:5600/notes/${noteId}`, {
+        method: "PUT",
+        headers: {
+          "Content-type": "application/json",
+          // 'Authorization': `Bearer ${user?.token}`,
+        },
+        body: JSON.stringify(note)
+      })
+      const json = await res.json()
+      console.log(json);
+      getNotes(user)
+    } catch (error) {
+      if (error instanceof Error) {
+        console.log(error.message);
+      }
+    }
+  },
+
+  deleteNote: async (noteId) => {
+    console.log(noteId);
+
+    // hacer el filtro en local o ejecuto denuevo el getAllNotes pasandole el noteId y user.
+    const notes = get().notes
+    const cloneNotes = structuredClone(notes)
+    const notesFiltered = cloneNotes.filter(note => note.id != noteId)
+    set({ notes: notesFiltered })
+
+    try {
+      const res = await fetch(`http://localhost:5600/notes/${noteId}`, {
+        method: "DELETE",
+        headers: {
+          // 'Authorization': `Bearer ${user?.token}`,
+        }
+      })
+      const json = await res.json()
+      console.log(json);
+    } catch (error) {
+      if (error instanceof Error) {
+        console.log(error.message);
+      }
+    }
+  }
+}))
