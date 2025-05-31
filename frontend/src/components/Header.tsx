@@ -15,7 +15,7 @@ function Header() {
   }
 
   return (
-    <header className="fixed top-0 left-0 flex justify-between items-center px-10 w-full min-h-24 bg-transparent backdrop-blur-2xl border-b-2 border-gray-800">
+    <header className="fixed top-0 left-0 flex justify-between items-center px-10 w-full min-h-24 bg-[#00000010] backdrop-blur-2xl">
       <h1 className="text-2xl font-bold"><Link to="/">OnlyStrings</Link></h1>
       <nav className="flex gap-10">
         {/* <div>theme</div> */}
