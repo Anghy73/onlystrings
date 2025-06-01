@@ -2,11 +2,12 @@ import { useEffect } from "react";
 import { useTokenStore } from "../store/useTokenStore"
 import ListNotes from "../components/ListNotes";
 import { useNotesStore } from "../store/useNotesStore";
+import ShowAlert from "../components/ShowAlert";
 
 const Notes = () => {
   const user = useTokenStore(state => state.user)
-  const getAllNotes = useNotesStore(state => state.getAllNotes)
   const notes = useNotesStore(state => state.notes)
+  const getAllNotes = useNotesStore(state => state.getAllNotes)
 
   useEffect(() => {
     getAllNotes(user)
@@ -59,12 +60,16 @@ const Notes = () => {
   //   },
   // ]
 
-
   return (
-    <div className="flex flex-col w-full h-full pt-40">
-      {/* <NoteItem note={notes[0]}  /> */}
+    <div className="flex-col w-full h-full pt-40">
       {
-        user == null ? <p>You need login for show notes</p> : notes.length >= 1 ? <ListNotes /> : <p>Don't have notes</p>
+        user == null && <ShowAlert text="You need to login for show notes" />
+      }
+      {
+        notes.length == 0 && <ShowAlert text="You don't have notes" />
+      }
+      {
+        notes.length >= 1 && <ListNotes />
       }
     </div>
   )
