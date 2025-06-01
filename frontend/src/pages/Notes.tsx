@@ -13,55 +13,8 @@ const Notes = () => {
     getAllNotes(user)
   }, [user, getAllNotes])
 
-  // console.log(notes);
-
-  // const notas = [
-  //   {
-  //     id: 1,
-  //     title: 'dkasjd',
-  //     content: "dasd",
-  //     createdAt: "12/54/5433"
-  //   },
-  //   {
-  //     id: 2,
-  //     title: 'dkasjd',
-  //     content: "dasd",
-  //     createdAt: "12/54/5433"
-  //   },
-  //   {
-  //     id: 3,
-  //     title: 'dkasjd',
-  //     content: "dasd",
-  //     createdAt: "12/54/5433"
-  //   },
-  //   {
-  //     id: 4,
-  //     title: 'dkasjd',
-  //     content: "dasd",
-  //     createdAt: "12/54/5433"
-  //   },
-  //   {
-  //     id: 5,
-  //     title: 'dkasjd',
-  //     content: "dasd",
-  //     createdAt: "12/54/5433"
-  //   },
-  //   {
-  //     id: 6,
-  //     title: 'dkasjd',
-  //     content: "dasd",
-  //     createdAt: "12/54/5433" 
-  //   },
-  //   {
-  //     id: 7,
-  //     title: 'dkasjd',
-  //     content: "dasd",
-  //     createdAt: "12/54/5433"
-  //   },
-  // ]
-
   return (
-    <div className="flex-col w-full h-full pt-40">
+    <div className="flex flex-col w-full h-full pt-40">
       {
         user == null && <ShowAlert text="You need to login for show notes" />
       }
