@@ -19,10 +19,10 @@ const Notes = () => {
         user == null && <ShowAlert text="You need to login for show notes" />
       }
       {
-        notes.length == 0 && <ShowAlert text="You don't have notes" />
+        user != null && notes.length == 0 && <ShowAlert text="You don't have notes" />
       }
       {
-        notes.length >= 1 && <ListNotes />
+        user != null && notes.length >= 1 && <ListNotes />
       }
     </div>
   )

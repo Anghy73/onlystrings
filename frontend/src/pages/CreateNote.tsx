@@ -1,12 +1,11 @@
 import { Link, useNavigate } from "react-router"
 import Tiptap from "../components/TipTap"
 import { useEditor } from "@tiptap/react";
-import Document from '@tiptap/extension-document'
-import Heading from '@tiptap/extension-heading'
-import Paragraph from '@tiptap/extension-paragraph'
-import Text from '@tiptap/extension-text'
 import { useTokenStore } from "../store/useTokenStore";
 import { useState } from "react";
+import StarterKit from "@tiptap/starter-kit";
+import TextAlign from '@tiptap/extension-text-align'
+import Underline from '@tiptap/extension-underline'
 
 const content = `
         <h1>This is a 1st yes level heading</h1>
@@ -18,20 +17,23 @@ function CreateNote() {
   const [title, setTitle] = useState('')
   const user = useTokenStore(state => state.user)
   const navigate = useNavigate()
-  console.log(user);
+  // console.log(user);
 
   const editor = useEditor({
     extensions: [
-      Document,
-      Paragraph,
-      Text,
-      Heading.configure({
-        levels: [1, 2, 3]
-      })
+      StarterKit.configure({
+        heading: {
+          levels: [1, 2, 3, 4]
+        }
+      }),
+      TextAlign.configure({
+        types: ['heading', 'paragraph'],
+      }),
+      Underline,
     ],
     editorProps: {
       attributes: {
-        class: 'prose max-w-none prose-sm sm:prose-base lg:prose-lg xl:prose-2xl m-5 focus:outline-none'
+        class: 'prose min-h-[500px] prose-white max-w-none prose-sm sm:prose-base lg:prose-lg xl:prose-2xl m-5 focus:outline-none'
       }
     },
     content: content,
@@ -77,7 +79,7 @@ function CreateNote() {
         </div>
 
         {/* tools */}
-        <div className="w-full flex flex-col">
+        <div className="w-full">
           <Tiptap editor={editor} />
         </div>
         <button onClick={handleCreateNote} className="bg-black w-full py-4 cursor-pointer">Crear</button>
