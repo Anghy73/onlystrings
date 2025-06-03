@@ -3,6 +3,7 @@ import { HugeiconsIcon } from "@hugeicons/react"
 import { Link } from "react-router"
 import PreviewNote from "./PreviewNote"
 import { useNotesStore } from "../store/useNotesStore"
+import { useState } from "react"
 
 interface Note {
   readonly id: number
@@ -12,9 +13,11 @@ interface Note {
 }
 
 function NoteItem({ note }: { note: Note }) {
+  const [showDeleteModal, setShowDeleteModal] = useState(false)
   const deleteNote = useNotesStore(state => state.deleteNote)
   const handleDeleteNote = () => {
-    deleteNote(note.id)
+    setShowDeleteModal(!showDeleteModal)
+    // deleteNote(note.id)
   }
 
   const fechaSQL = `${note.createdAt}`;
@@ -34,6 +37,17 @@ function NoteItem({ note }: { note: Note }) {
           <p className="text-end text-gray-600">{fechaFormat}</p>
         </Link>
       </div>
+      {
+        showDeleteModal && <div className="fixed inset-0 bg-black/60 bg-opacity-10 z-50 flex items-center justify-center">
+          <div className="bg-[#222] text-white p-6 rounded-lg shadow-lg">
+            <h5 className="mb-4">Are you sure you want to delete this note?</h5>
+            <div className="flex gap-4 justify-center items-stretch">
+              <button onClick={() => deleteNote(note.id)} className="cursor-pointer flex-1 rounded-xl border-3 border-red-400 text-red-400 font-semibold hover:text-red-500 hover:border-red-500 transition-all px-4 py-2">Delete</button>
+              <button onClick={() => setShowDeleteModal(false)} className="cursor-pointer flex-1 rounded-xl border-3 border-gray-300 text-gray-300 hover:text-gray-100 hover:border-gray-100 px-4 py-2">Cancel</button>
+            </div>
+          </div>
+        </div>
+      }
 
       <div className="w-full flex flex-col gap-2 max-w-16">
         <Link className="flex justify-center items-center bg-[#0f0f0f] border-3 border-black flex-1 rounded-md cursor-pointer hover:text-cyan-400 transition-colors" to={`/editNotePage/${note.id}`}>
