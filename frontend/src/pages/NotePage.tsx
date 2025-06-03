@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router"
+import { useParams } from "react-router"
 import { useTokenStore } from "../store/useTokenStore";
 import ViewNote from "../components/ViewNote";
 import Back from "../components/Back";

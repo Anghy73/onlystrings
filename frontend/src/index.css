@@ -90,7 +90,7 @@ pre>code {
 }
 
 .codeEditor {
-  border-radius: 15px;
+  border-radius: 10px;
   background: linear-gradient(225deg, #1d1d1d, #111111, #010101);
   box-shadow: -35px 35px 70px #0f0f0f,
     35px -35px 70px #1c1c1c;
