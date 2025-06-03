@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router"
+import { useNavigate } from "react-router"
 import Tiptap from "../components/TipTap"
 import { useEditor } from "@tiptap/react";
 import { useTokenStore } from "../store/useTokenStore";

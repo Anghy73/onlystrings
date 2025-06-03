@@ -36,10 +36,10 @@ function Header() {
             </> : <>
               <div className="flex-1">
                 <Link to="/createNote">
-                  <button className="w-full text-center border-2 py-2 px-4 rounded-md bg-cyan-950 border-cyan-900 text-cyan-500 hover:border-cyan-500 cursor-pointer hover:text-cyan-300 transition-colors font-semibold" onClick={handleCreate}>Create</button>
+                  <button className="w-full text-center border-2 py-2 px-4 rounded-2xl bg-black/70 border-[#222] text-white cursor-pointer transition-colors font-semibold" onClick={handleCreate}>Create</button>
                 </Link>
               </div>
-              <button className="w-full max-w-32 text-center border-2 py-2 px-4 rounded-md hover:text-cyan-500 cursor-pointer transition-colors font-semibold" onClick={handleLogout}>logout</button>
+              <button className="w-full max-w-32 text-center border-2- border-white py-2 px-4 rounded-2xl cursor-pointer transition-colors bg-white text-black font-bold" onClick={handleLogout}>Logout</button>
             </>
           }
         </ul>

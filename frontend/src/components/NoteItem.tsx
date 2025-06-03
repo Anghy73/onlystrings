@@ -17,8 +17,8 @@ function NoteItem({ note }: { note: Note }) {
     deleteNote(note.id)
   }
 
-  const fechaISO = `${note.createdAt}`;
-  const fecha = new Date(fechaISO);
+  const fechaSQL = `${note.createdAt}`;
+  const fecha = new Date(fechaSQL);
   const fechaFormat = fecha.toLocaleString('es-ES');
 
   return (
