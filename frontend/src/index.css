@@ -95,3 +95,8 @@ pre>code {
   box-shadow: -35px 35px 70px #0f0f0f,
     35px -35px 70px #1c1c1c;
 }
+
+div > * {
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+}

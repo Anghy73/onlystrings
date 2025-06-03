@@ -6,6 +6,8 @@ import { useState } from "react";
 import StarterKit from "@tiptap/starter-kit";
 import TextAlign from '@tiptap/extension-text-align'
 import Underline from '@tiptap/extension-underline'
+import { toast, Toaster } from "sonner";
+import Back from "../components/Back";
 
 const content = `
         <h1>This is a 1st yes level heading</h1>
@@ -41,13 +43,16 @@ function CreateNote() {
 
   const handleCreateNote = async () => {
     try {
+      if (title.trim() == '') {
+        return toast.warning("We need a title")
+      }
       const content = editor?.getHTML()
       const note = {
         title: title,
         content,
         user: user?.id
       }
-      console.log(note);
+
       const res = await fetch(`http://localhost:5600/notes/${user?.id}`, {
         method: "POST",
         headers: {
@@ -58,6 +63,7 @@ function CreateNote() {
       })
       const json = await res.json()
       console.log(json);
+
       navigate("/")
     } catch (error) {
       if (error instanceof Error) {
@@ -68,9 +74,8 @@ function CreateNote() {
 
   return (
     <div className="relative min-h-screen flex flex-col justify-center items-center px-10 pt-28 bg-[#1e1e20aa]">
-      <Link to="/">
-        <div className="absolute top-14 left-10 border-3 border-gray-700 text-gray-500 py-2 px-4 rounded-lg font-bold hover:text-gray-500">Back</div>
-      </Link>
+      <Toaster richColors />
+      <Back />
 
       <div className="w-full max-w-6xl flex flex-col justify-center items-center gap-10 mb-10">
         {/* title */}
