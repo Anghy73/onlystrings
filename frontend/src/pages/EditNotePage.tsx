@@ -1,7 +1,9 @@
-import { Link, useParams } from "react-router"
+import { useParams } from "react-router"
 import { useTokenStore } from "../store/useTokenStore";
 import { useEffect, useState } from "react";
 import ViewNote from "../components/ViewNote";
+import Back from "../components/Back";
+import { Toaster } from "sonner";
 
 interface Note {
   readonly id: number
@@ -12,9 +14,7 @@ interface Note {
 
 function EditNotePage() {
   const { noteId } = useParams()
-  // console.log(noteId);
-  const [note, setNote] = useState<Note| null>(null)
-
+  const [note, setNote] = useState<Note | null>(null)
   const user = useTokenStore(store => store.user)
 
   useEffect(() => {
@@ -32,20 +32,18 @@ function EditNotePage() {
     getNote()
   }, [noteId, user?.token])
 
-  // console.log(note);
-
   return (
-    <>
-      <div>EditNotePage</div>
-      <Link to="/">
-        <button className="bg-red-300 my-10 ml-10">Volver</button>
-      </Link>
-      <div className="bg-red-200">
-        <h2>{note?.title}</h2>
+    <div className="relative min-h-screen flex flex-col justify-center items-center px-10 pt-28 bg-[#1e1e20aa]">
+      <Toaster richColors />
+      <Back />
 
-        {note && <ViewNote edit={true} note={note} />}
+      <div className="w-full max-w-6xl flex flex-col justify-center items-center gap-10 mb-10">
+        {/* tools */}
+        <div className="w-full">
+          <ViewNote edit={true} note={note} />
+        </div>
       </div>
-    </>
+    </div>
   )
 }
 

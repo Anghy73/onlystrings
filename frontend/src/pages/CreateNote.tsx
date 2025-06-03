@@ -90,7 +90,6 @@ function CreateNote() {
         <button onClick={handleCreateNote} className="bg-[#090909] text-2xl font-bold rounded-lg text-[#aaa] hover:text-[#eee] w-full py-4 cursor-pointer">Crear</button>
       </div>
     </div>
-
   )
 }
 

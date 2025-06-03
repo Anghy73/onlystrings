@@ -1,11 +1,6 @@
 import { create } from "zustand";
-
-interface Note {
-  readonly id: number
-  title: string
-  content?: string
-  createdAt?: string
-}
+import type { Note } from "../types";
+import { toast } from "sonner";
 
 interface User {
   id: number
@@ -18,7 +13,7 @@ interface User {
 interface NotesStore {
   notes: Array<Note>
   getAllNotes: (user: User | null) => void
-  updateNote: ({note, user}: { note: Note, user: User | null }) => void
+  updateNote: ({ note, user }: { note: Note, user: User | null }) => void
   deleteNote: (noteId: number) => void
 }
 
@@ -35,7 +30,7 @@ export const useNotesStore = create<NotesStore>((set, get) => ({
 
       const json = await res.json()
       console.log(json);
-      
+
       set({ notes: json.notes })
     } catch (error) {
       if (error instanceof Error) {
@@ -46,8 +41,6 @@ export const useNotesStore = create<NotesStore>((set, get) => ({
 
   updateNote: async ({ note, user }) => {
     const getNotes = get().getAllNotes
-    console.log(note);
-    console.log(user);
     const noteId = note.id
 
     try {
@@ -61,6 +54,7 @@ export const useNotesStore = create<NotesStore>((set, get) => ({
       })
       const json = await res.json()
       console.log(json);
+      toast.success("update success")
       getNotes(user)
     } catch (error) {
       if (error instanceof Error) {
@@ -87,6 +81,7 @@ export const useNotesStore = create<NotesStore>((set, get) => ({
       })
       const json = await res.json()
       console.log(json);
+      toast.success("delete success")
     } catch (error) {
       if (error instanceof Error) {
         console.log(error.message);

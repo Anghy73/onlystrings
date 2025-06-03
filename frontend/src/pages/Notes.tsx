@@ -3,6 +3,7 @@ import { useTokenStore } from "../store/useTokenStore"
 import ListNotes from "../components/ListNotes";
 import { useNotesStore } from "../store/useNotesStore";
 import ShowAlert from "../components/ShowAlert";
+import { Toaster } from "sonner";
 
 const Notes = () => {
   const user = useTokenStore(state => state.user)
@@ -24,6 +25,7 @@ const Notes = () => {
       {
         user != null && notes.length >= 1 && <ListNotes />
       }
+      <Toaster richColors />
     </div>
   )
 }
