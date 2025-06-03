@@ -8,15 +8,15 @@ function Tiptap({ editor }: { editor: Editor | null }) {
   }
 
   return (
-    <div className='flex flex-col gap-10'>
+    <div className='flex flex-col gap-2'>
       {/* tools */}
       <div className='sticky top-4 z-10 w-full gap-5'>
         {/* contenedor de las herraminetas */}
-        <div className='w-full p-4 bg-[#050505] rounded-md'>
+        <div className='w-full p-4 bg-[#090909] border-2 border-black rounded-md'>
           {/* donde se contienen a todos lo grupos */}
           <div className="control-group flex flex-wrap justify-center gap-2">
             {/* grupo de undo/redo */}
-            <div className="heading-button-group bg-[#0f0f0f] p-1 rounded-sm">
+            <div className="button-group bg-[#0f0f0f] p-1 rounded-sm">
               <button onClick={() => editor.chain().focus().undo().run()} disabled={!editor.can().undo()}>
                 <HugeiconsIcon icon={ArrowTurnBackwardIcon} />
               </button>
@@ -25,7 +25,7 @@ function Tiptap({ editor }: { editor: Editor | null }) {
               </button>
             </div>
             {/* grupo de heading */}
-            <div className="heading-button-group bg-[#0f0f0f] p-1 rounded-sm">
+            <div className="button-group bg-[#0f0f0f] p-1 rounded-sm">
               <button
                 onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
                 className={editor.isActive('heading', { level: 1 }) ? 'is-active' : 'hover:bg-[#2a2a2a]'}
@@ -44,7 +44,7 @@ function Tiptap({ editor }: { editor: Editor | null }) {
               ><HugeiconsIcon icon={Heading04Icon} /></button>
             </div>
             {/* grupo font */}
-            <div className="heading-button-group bg-[#0f0f0f] p-1 rounded-sm">
+            <div className="button-group bg-[#0f0f0f] p-1 rounded-sm">
               <button
                 onClick={() => editor.chain().focus().toggleBold().run()}
                 className={editor.isActive('bold') ? 'is-active' : ''}
@@ -71,7 +71,7 @@ function Tiptap({ editor }: { editor: Editor | null }) {
               </button>
             </div>
             {/* grupo aling text */}
-            <div className="heading-button-group bg-[#0f0f0f] p-1 rounded-sm">
+            <div className="button-group bg-[#0f0f0f] p-1 rounded-sm">
               <button
                 onClick={() => editor.chain().focus().setTextAlign('left').run()}
                 className={editor.isActive({ textAlign: 'left' }) ? 'is-active' : ''}
@@ -98,7 +98,7 @@ function Tiptap({ editor }: { editor: Editor | null }) {
               </button>
             </div>
             {/* grupo de toggle list */}
-            <div className="heading-button-group bg-[#0f0f0f] p-1 rounded-sm">
+            <div className="button-group bg-[#0f0f0f] p-1 rounded-sm">
               <button
                 onClick={() => editor.chain().focus().toggleBulletList().run()}
                 className={editor.isActive('bulletList') ? 'is-active' : ''}
@@ -139,7 +139,7 @@ function Tiptap({ editor }: { editor: Editor | null }) {
       </div>
 
       {/* content */}
-      <div className='text-white bg-black w-full h-full min-h-[500px] p-4'>
+      <div className='codeEditor text-white w-full h-full min-h-[500px] p-8 border-2 border-black'>
         <EditorContent editor={editor} />
         {/* <EditorProvider extensions={extensions} content={content}> */}
         {/* <FloatingMenu editor={null}>This is floating menu</FloatingMenu>
@@ -151,12 +151,3 @@ function Tiptap({ editor }: { editor: Editor | null }) {
 }
 
 export default Tiptap
-
-
-// import { useCurrentEditor } from '@tiptap/react'
-
-// const EditorJSONPreview = () => {
-//   const { editor } = useCurrentEditor()
-
-//   return <pre>{JSON.stringify(editor.getJSON(), null, 2)}</pre>
-// }

@@ -67,22 +67,22 @@ function CreateNote() {
   }
 
   return (
-    <div className="relative min-h-screen flex flex-col justify-center items-center px-10 pt-28">
+    <div className="relative min-h-screen flex flex-col justify-center items-center px-10 pt-28 bg-[#1e1e20aa]">
       <Link to="/">
         <div className="absolute top-14 left-10 border-3 border-gray-700 text-gray-500 py-2 px-4 rounded-lg font-bold hover:text-gray-500">Back</div>
       </Link>
 
-      <div className="w-full max-w-6xl flex flex-col justify-center items-center gap-6">
+      <div className="w-full max-w-6xl flex flex-col justify-center items-center gap-10 mb-10">
         {/* title */}
-        <div className="w-full flex justify-center items-center bg-black rounded-lg py-4">
-          <input onChange={(e) => setTitle(e.currentTarget.value)} name="title" className="w-full h-10 text-center text-4xl outline-0" type="text" placeholder="Untitle..." value={title} />
+        <div className="w-full flex justify-center items-center bg-[#090909] rounded-lg py-6">
+          <input onChange={(e) => setTitle(e.currentTarget.value)} name="title" className="w-full h-10 text-center text-4xl outline-0" type="text" placeholder="Title" value={title} />
         </div>
 
         {/* tools */}
         <div className="w-full">
           <Tiptap editor={editor} />
         </div>
-        <button onClick={handleCreateNote} className="bg-black w-full py-4 cursor-pointer">Crear</button>
+        <button onClick={handleCreateNote} className="bg-[#090909] text-2xl font-bold rounded-lg text-[#aaa] hover:text-[#eee] w-full py-4 cursor-pointer">Crear</button>
       </div>
     </div>
 
