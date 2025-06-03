@@ -72,7 +72,7 @@ function Login() {
               passwordError && <p>{passwordError}</p>
             }
           </div>
-          <button className="bg-cyan-950 p-3 rounded-md cursor-pointer font-semibold text-xl hover:bg-cyan-900 mt-4" type="submit">Enter</button>
+          <button className="w-full text-center border-2 border-white py-2 px-4 rounded-2xl cursor-pointer transition-colors bg-white text-black/80 font-bold text-lg" type="submit">Enter</button>
         </form>
       </div>
 
