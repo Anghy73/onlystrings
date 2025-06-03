@@ -59,11 +59,11 @@ function ViewNote({ note, edit }: { note: Note | null, edit: boolean }) {
 
   return (
     <div>
-      {
-        edit && <div className="w-full flex justify-center items-center bg-[#090909] rounded-lg py-6 mb-10">
-          <input onChange={(e) => setTitle(e.currentTarget.value)} name="title" className="w-full h-10 text-center text-4xl outline-0" type="text" placeholder="Title" value={title} />
-        </div>
-      }
+
+      <div className="w-full flex justify-center items-center bg-[#090909] rounded-lg py-6 mb-10">
+        <input onChange={(e) => setTitle(e.currentTarget.value)} name="title" className="w-full h-10 text-center text-4xl outline-0" type="text" placeholder="Title" value={title} readOnly={!edit} />
+      </div>
+
       {
         edit && <div className='sticky top-4 z-10 w-full gap-5'>
           {/* contenedor de las herraminetas */}
