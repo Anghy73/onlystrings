@@ -8,6 +8,7 @@ import TextAlign from '@tiptap/extension-text-align'
 import Underline from '@tiptap/extension-underline'
 import { toast, Toaster } from "sonner";
 import Back from "../components/Back";
+import { useNotesStore } from "../store/useNotesStore";
 
 const content = `
         <h1>This is a 1st yes level heading</h1>
@@ -18,8 +19,8 @@ const content = `
 function CreateNote() {
   const [title, setTitle] = useState('')
   const user = useTokenStore(state => state.user)
+  const createNote = useNotesStore(state => state.createNote)
   const navigate = useNavigate()
-  // console.log(user);
 
   const editor = useEditor({
     extensions: [
@@ -41,35 +42,20 @@ function CreateNote() {
     content: content,
   })
 
-  const handleCreateNote = async () => {
-    try {
-      if (title.trim() == '') {
-        return toast.warning("We need a title")
-      }
-      const content = editor?.getHTML()
-      const note = {
-        title: title,
-        content,
-        user: user?.id
-      }
-
-      const res = await fetch(`http://localhost:5600/notes/${user?.id}`, {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json",
-          'Authorization': `Bearer ${user?.token}`,
-        },
-        body: JSON.stringify(note)
-      })
-      const json = await res.json()
-      console.log(json);
-
-      navigate("/")
-    } catch (error) {
-      if (error instanceof Error) {
-        console.log(error.message)
-      }
+  const handleCreateNote = () => {
+    if (title.trim() == '') {
+      return toast.warning("We need a title")
     }
+
+    const note = {
+      title: title,
+      content: editor?.getHTML(),
+      user: user?.id
+    }
+
+    createNote({ note, user })
+    navigate("/")
+
   }
 
   return (

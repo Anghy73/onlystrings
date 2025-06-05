@@ -1,20 +1,13 @@
 import { create } from "zustand";
-import type { Note } from "../types";
+import type { Note, User } from "../types";
 import { toast } from "sonner";
-
-interface User {
-  id: number
-  name: string
-  email: string,
-  notes: string,
-  token: string
-}
 
 interface NotesStore {
   notes: Array<Note>
   getAllNotes: (user: User | null) => void
+  createNote: ({ note, user }: { note: Note, user: User | null }) => void
   updateNote: ({ note, user }: { note: Note, user: User | null }) => void
-  deleteNote: (noteId: number) => void
+  deleteNote: (noteId: number | undefined) => void
 }
 
 export const useNotesStore = create<NotesStore>((set, get) => ({
@@ -35,6 +28,32 @@ export const useNotesStore = create<NotesStore>((set, get) => ({
     } catch (error) {
       if (error instanceof Error) {
         console.log(error);
+      }
+    }
+  },
+
+  createNote: async ({ note, user }) => {
+    const getNotes = get().getAllNotes
+
+    console.log(note, user);
+
+    try {
+      const res = await fetch(`http://localhost:5600/notes/${user?.id}`, {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+          'Authorization': `Bearer ${user?.token}`,
+        },
+        body: JSON.stringify(note)
+      })
+      const json = await res.json()
+      if (json) {
+        toast.success("note created succes")
+        getNotes(user)
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        console.log(error.message)
       }
     }
   },

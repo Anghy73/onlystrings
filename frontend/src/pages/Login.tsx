@@ -18,7 +18,10 @@ function Login() {
   const { register, handleSubmit, formState: { errors } } = useForm<UserLogin>({
     resolver: zodResolver(userLoginSchema)
   })
+
   const onSubmit = handleSubmit(async (data) => {
+    console.log(data);
+
     try {
       const res = await fetch("http://localhost:5600/users/login", {
         method: "POST",
@@ -31,14 +34,13 @@ function Login() {
         })
       })
       const json = await res.json()
-      console.log(json);
+
       if (json.error) {
         console.log(json.error);
-        setPasswordError(json.error)
-      } else {
-        navigate("/")
-        setUser(json.user)
+        return setPasswordError(json.error)
       }
+      navigate("/")
+      setUser(json.user)
     } catch (error) {
       if (error instanceof Error) {
         console.log(error.message);

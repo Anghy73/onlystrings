@@ -4,20 +4,13 @@ import { Link } from "react-router"
 import PreviewNote from "./PreviewNote"
 import { useNotesStore } from "../store/useNotesStore"
 import { useState } from "react"
-
-interface Note {
-  readonly id: number
-  title: string
-  content?: string
-  createdAt?: string
-}
+import type { Note } from "../types"
 
 function NoteItem({ note }: { note: Note }) {
   const [showDeleteModal, setShowDeleteModal] = useState(false)
   const deleteNote = useNotesStore(state => state.deleteNote)
   const handleDeleteNote = () => {
     setShowDeleteModal(!showDeleteModal)
-    // deleteNote(note.id)
   }
 
   const fechaSQL = `${note.createdAt}`;
@@ -30,7 +23,7 @@ function NoteItem({ note }: { note: Note }) {
         <Link className="px-4 py-2 flex flex-col gap-3" to={`/notePage/${note.id}`}>
           <h3 className="text-3xl font-medium text-nowrap overflow-y-hidden overflow-x-scroll" title={note.title} >{note.title}</h3>
           <div className="relative w-full h-30 overflow-hidden">
-            <div className="absolute w-full h-full -top-8 -left-18 scale-50">
+            <div className="absolute top-0 -left-10 w-full h-full scale-70">
               <PreviewNote note={note} />
             </div>
           </div>
