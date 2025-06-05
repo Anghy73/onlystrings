@@ -1,17 +1,12 @@
 import { Link } from "react-router"
-import { useTokenStore } from "../store/useTokenStore"
+import { useUserStore } from "../store/useUserStore"
 
 function Header() {
-  const user = useTokenStore(state => state.user)
-  const setUser = useTokenStore(state => state.setUser)
+  const user = useUserStore(state => state.user)
+  const setUser = useUserStore(state => state.setUser)
   const handleLogout = () => {
-    console.log('hi');
+    console.log('bye');
     setUser(null)
-  }
-
-  const handleCreate = () => {
-    console.log('hi');
-    // setUser(null)
   }
 
   return (
@@ -36,7 +31,7 @@ function Header() {
             </> : <>
               <div className="flex-1">
                 <Link to="/createNote">
-                  <button className="w-full text-center border-2 py-2 px-4 rounded-2xl bg-black/70 border-[#222] text-white cursor-pointer transition-colors font-semibold" onClick={handleCreate}>Create</button>
+                  <button className="w-full text-center border-2 py-2 px-4 rounded-2xl bg-black/70 border-[#222] text-white cursor-pointer transition-colors font-semibold">Create</button>
                 </Link>
               </div>
               <button className="w-full max-w-32 text-center border-2- border-white py-2 px-4 rounded-2xl cursor-pointer transition-colors bg-white text-black font-bold" onClick={handleLogout}>Logout</button>

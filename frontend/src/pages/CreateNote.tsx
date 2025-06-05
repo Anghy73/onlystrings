@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router"
 import Tiptap from "../components/TipTap"
 import { useEditor } from "@tiptap/react";
-import { useTokenStore } from "../store/useTokenStore";
+import { useUserStore } from "../store/useUserStore";
 import { useState } from "react";
 import StarterKit from "@tiptap/starter-kit";
 import TextAlign from '@tiptap/extension-text-align'
@@ -18,7 +18,7 @@ const content = `
 
 function CreateNote() {
   const [title, setTitle] = useState('')
-  const user = useTokenStore(state => state.user)
+  const user = useUserStore(state => state.user)
   const createNote = useNotesStore(state => state.createNote)
   const navigate = useNavigate()
 

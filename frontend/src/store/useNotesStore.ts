@@ -48,7 +48,7 @@ export const useNotesStore = create<NotesStore>((set, get) => ({
       })
       const json = await res.json()
       if (json) {
-        toast.success("note created succes")
+        toast.success("note created success")
         getNotes(user)
       }
     } catch (error) {

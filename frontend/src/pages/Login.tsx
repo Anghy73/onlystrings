@@ -2,7 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router";
 import { userLoginSchema } from "../schemas/zodSchemas";
-import { useTokenStore } from "../store/useTokenStore";
+import { useUserStore } from "../store/useUserStore";
 import Back from "../components/Back";
 import { useState } from "react";
 
@@ -14,38 +14,19 @@ interface UserLogin {
 function Login() {
   const [passwordError, setPasswordError] = useState<null | string>(null)
   const navigate = useNavigate()
-  const setUser = useTokenStore(state => state.setUser)
+  const userLogin = useUserStore(state => state.userLogin)
   const { register, handleSubmit, formState: { errors } } = useForm<UserLogin>({
     resolver: zodResolver(userLoginSchema)
   })
 
   const onSubmit = handleSubmit(async (data) => {
-    console.log(data);
+    const json = await userLogin(data)
 
-    try {
-      const res = await fetch("http://localhost:5600/users/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: data.email,
-          password: data.password
-        })
-      })
-      const json = await res.json()
-
-      if (json.error) {
-        console.log(json.error);
-        return setPasswordError(json.error)
-      }
-      navigate("/")
-      setUser(json.user)
-    } catch (error) {
-      if (error instanceof Error) {
-        console.log(error.message);
-      }
+    if (json.error) {
+      console.log(json.error);
+      return setPasswordError(json.error)
     }
+    navigate("/")
   })
 
   return (

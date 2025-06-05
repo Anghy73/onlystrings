@@ -1,5 +1,5 @@
 import { useParams } from "react-router"
-import { useTokenStore } from "../store/useTokenStore";
+import { useUserStore } from "../store/useUserStore";
 import { useEffect, useState } from "react";
 import ViewNote from "../components/ViewNote";
 import Back from "../components/Back";
@@ -16,7 +16,7 @@ interface Note {
 function EditNotePage() {
   const { noteId } = useParams()
   const [note, setEditNote] = useState<Note | null>(null)
-  const user = useTokenStore(store => store.user)
+  const user = useUserStore(store => store.user)
 
   useEffect(() => {
     const getNote = async () => {

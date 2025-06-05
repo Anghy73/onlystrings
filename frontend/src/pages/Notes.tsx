@@ -1,12 +1,12 @@
 import { useEffect } from "react";
-import { useTokenStore } from "../store/useTokenStore"
+import { useUserStore } from "../store/useUserStore"
 import ListNotes from "../components/ListNotes";
 import { useNotesStore } from "../store/useNotesStore";
 import ShowAlert from "../components/ShowAlert";
 import { Toaster } from "sonner";
 
 const Notes = () => {
-  const user = useTokenStore(state => state.user)
+  const user = useUserStore(state => state.user)
   const notes = useNotesStore(state => state.notes)
   const getAllNotes = useNotesStore(state => state.getAllNotes)
 

@@ -1,7 +1,7 @@
 import { EditorContent, useEditor } from "@tiptap/react"
 import StarterKit from "@tiptap/starter-kit"
 import { useEffect, useState } from "react"
-import { useTokenStore } from "../store/useTokenStore"
+import { useUserStore } from "../store/useUserStore"
 import { useNotesStore } from "../store/useNotesStore"
 import { useNavigate } from "react-router"
 import { ArrowTurnBackwardIcon, ArrowTurnForwardIcon, Heading01Icon, Heading02Icon, Heading03Icon, Heading04Icon, LeftToRightBlockQuoteIcon, LeftToRightListBulletIcon, LeftToRightListNumberIcon, SourceCodeIcon, SourceCodeSquareIcon, TextAlignCenterIcon, TextAlignJustifyCenterIcon, TextAlignLeftIcon, TextAlignRightIcon, TextBoldIcon, TextItalicIcon, TextStrikethroughIcon, TextUnderlineIcon } from "@hugeicons/core-free-icons"
@@ -16,7 +16,7 @@ interface Note {
 }
 
 function ViewNote({ note, edit }: { note: Note | null, edit: boolean }) {
-  const user = useTokenStore(state => state.user)
+  const user = useUserStore(state => state.user)
   const updateNote = useNotesStore(state => state.updateNote)
   const [title, setTitle] = useState('')
   const navigate = useNavigate()

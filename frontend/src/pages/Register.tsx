@@ -1,8 +1,10 @@
 import { useForm } from "react-hook-form"
-import { Link } from "react-router"
+import { Link, useNavigate } from "react-router"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { userRegisterSchema } from "../schemas/zodSchemas"
+import { useUserStore } from "../store/useUserStore"
 import Back from "../components/Back"
+import { useState } from "react"
 
 interface UserRegister {
   name: string
@@ -12,32 +14,25 @@ interface UserRegister {
 }
 
 function Register() {
-  // const navigate = useNavigate()
+  const [error, setError] = useState<string | null>(null)
+  const userRegister = useUserStore(state => state.userRegister)
+  const navigate = useNavigate()
+
   const { register, handleSubmit, formState: { errors } } = useForm<UserRegister>({
     resolver: zodResolver(userRegisterSchema)
   })
   const onSubmit = handleSubmit(async (data) => {
-    try {
-      console.log(data);
-      const res = await fetch("http://localhost:5600/users/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: data.name,
-          email: data.email,
-          password: data.password
-        })
-      })
-      const json = await res.json()
-      console.log(json);
-    } catch (error) {
-      if (error instanceof Error) {
-        console.log(error.message);
-      }
+    const json = await userRegister(data)
+    console.log(json);
+
+    if (json.error) {
+      console.log(json.error);
+      return setError(json.error)
     }
+    navigate("/login")
   })
+
+  console.log(error);
 
   return (
     <div className="relative overflow-hidden bg-[#1e1e20aa] flex flex-col gap-10 justify-center items-center w-screen h-screen">
