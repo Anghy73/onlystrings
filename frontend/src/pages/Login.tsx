@@ -20,7 +20,9 @@ function Login() {
   })
 
   const onSubmit = handleSubmit(async (data) => {
-    const json = await userLogin(data)
+    console.log('click');
+
+    const json = userLogin(data)
 
     if (json.error) {
       console.log(json.error);

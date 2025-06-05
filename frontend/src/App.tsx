@@ -8,7 +8,7 @@ import CreateNote from './pages/CreateNote'
 import NotePage from './pages/NotePage'
 import EditNotePage from './pages/EditNotePage'
 import { useUserStore } from './store/useUserStore'
-// import { useUserStore } from './store/useUserStore'
+import ProtectedRoutes from './components/ProtectedRoutes'
 
 function App() {
   const user = useUserStore(state => state.user)
@@ -20,10 +20,10 @@ function App() {
         <Route element={<Home />}>
           <Route path='/' element={<Notes />} />
         </Route>
-        <Route path='/createNote' element={<CreateNote />} />
-        <Route path='/notePage/:noteId' element={<NotePage />} />
-        <Route path='/editNotePage/:noteId' element={<EditNotePage />} />
-        <Route element={<Home />} user={user}>
+        <Route element={<ProtectedRoutes user={user} />}>
+          <Route path='/createNote' element={<CreateNote />} />
+          <Route path='/notePage/:noteId' element={<NotePage />} />
+          <Route path='/editNotePage/:noteId' element={<EditNotePage />} />
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
         </Route>
