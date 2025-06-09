@@ -14,7 +14,7 @@ export const useNotesStore = create<NotesStore>((set, get) => ({
   notes: [],
   getAllNotes: async (user) => {
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL_NOTES}${user?.id}`, {
+      const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/notes/${user?.id}`, {
         headers: {
           'Authorization': `Bearer ${user?.token}`,
           'Content-Type': 'application/json'
@@ -38,7 +38,7 @@ export const useNotesStore = create<NotesStore>((set, get) => ({
     console.log(note, user);
 
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL_NOTES}${user?.id}`, {
+      const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/notes/${user?.id}`, {
         method: "POST",
         headers: {
           "Content-type": "application/json",
@@ -63,7 +63,7 @@ export const useNotesStore = create<NotesStore>((set, get) => ({
     const noteId = note.id
 
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL_NOTES}${noteId}`, {
+      const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/notes/${noteId}`, {
         method: "PUT",
         headers: {
           "Content-type": "application/json",
@@ -92,7 +92,7 @@ export const useNotesStore = create<NotesStore>((set, get) => ({
     set({ notes: notesFiltered })
 
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL_NOTES}${noteId}`, {
+      const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/notes/${noteId}`, {
         method: "DELETE",
         headers: {
           // 'Authorization': `Bearer ${user?.token}`,

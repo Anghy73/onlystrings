@@ -32,7 +32,7 @@ export const useUserStore = create<TokenZustand>()(
     userLogin: async (data) => {
       const setUser = get().setUser
       try {
-        const res = await fetch(`${import.meta.env.VITE_API_BASE_URL_USERS}login`, {
+        const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/users/login`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -54,7 +54,7 @@ export const useUserStore = create<TokenZustand>()(
     },
     userRegister: async (data) => {
       try {
-        const res = await fetch(`${import.meta.env.VITE_API_BASE_URL_USERS}register`, {
+        const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/users/register`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
