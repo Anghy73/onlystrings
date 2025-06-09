@@ -7,7 +7,9 @@ type getEditNote = {
 
 
 export const getEditNote = async ({noteId, user} : getEditNote) => {
-  const res = await fetch(`http://localhost:5600/notes/note/${noteId}`, {
+  console.log('por aqui');
+  
+  const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/notes/note/${noteId}`, {
     method: "GET",
     headers: {
       "Content-type": "application/json",
